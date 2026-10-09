@@ -66,5 +66,8 @@ namespace CSM.Commands.Data.Internal
         /// </summary>
         [ProtoMember(8)]
         public List<string> Mods { get; set; }
+
+        [ProtoMember(9)]
+        public int BuildingStatusProtocol { get; set; }
     }
 }

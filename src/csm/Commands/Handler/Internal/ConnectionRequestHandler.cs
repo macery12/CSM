@@ -8,6 +8,7 @@ using CSM.API;
 using CSM.API.Commands;
 using CSM.API.Networking;
 using CSM.API.Networking.Status;
+using CSM.BaseGame.Helpers;
 using CSM.Commands.Data.Internal;
 using CSM.Helpers;
 using CSM.Mods;
@@ -33,6 +34,16 @@ namespace CSM.Commands.Handler.Internal
         public void HandleOnServer(ConnectionRequestCommand command, NetPeer peer)
         {
             Log.Info("Received connection request.");
+
+            if (command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion)
+            {
+                CommandInternal.Instance.SendToClient(peer, new ConnectionResultCommand
+                {
+                    Success = false,
+                    Reason = "Building synchronization versions differ. Install matching CSM builds on all players."
+                });
+                return;
+            }
 
             string joiningVersion = command.GameVersion;
             string appVersion = BuildConfig.applicationVersion;
@@ -162,7 +173,8 @@ namespace CSM.Commands.Handler.Internal
             {
                 Success = true,
                 ClientId = peer.Id,
-                ServerToken = MultiplayerManager.Instance.CurrentServer.ServerToken
+                ServerToken = MultiplayerManager.Instance.CurrentServer.ServerToken,
+                BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion
             });
 
             PrepareWorldLoad(newPlayer);
