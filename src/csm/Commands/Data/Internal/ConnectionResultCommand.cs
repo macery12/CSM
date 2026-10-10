@@ -63,5 +63,8 @@ namespace CSM.Commands.Data.Internal
 
         [ProtoMember(8)]
         public int BuildingStatusProtocol { get; set; }
+
+        [ProtoMember(9)]
+        public int WildfireProtocol { get; set; }
     }
 }

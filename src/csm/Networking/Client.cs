@@ -423,7 +423,8 @@ namespace CSM.Networking
                 ExpansionBitMask = DLCHelper.GetOwnedExpansions(),
                 ModderPackBitMask = DLCHelper.GetOwnedModderPacks(),
                 Mods = ModSupport.Instance.RequiredModsForSync,
-                BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion
+                BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion,
+                WildfireProtocol = WildfireSync.ProtocolVersion
             };
 
             Log.Info("Sending connection request to server...");

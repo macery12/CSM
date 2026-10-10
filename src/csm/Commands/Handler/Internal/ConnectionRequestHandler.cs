@@ -35,12 +35,13 @@ namespace CSM.Commands.Handler.Internal
         {
             Log.Info("Received connection request.");
 
-            if (command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion)
+            if (command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion ||
+                command.WildfireProtocol != WildfireSync.ProtocolVersion)
             {
                 CommandInternal.Instance.SendToClient(peer, new ConnectionResultCommand
                 {
                     Success = false,
-                    Reason = "Building synchronization versions differ. Install matching CSM builds on all players."
+                    Reason = "Synchronization versions differ. Install matching CSM builds on all players."
                 });
                 return;
             }
@@ -174,7 +175,8 @@ namespace CSM.Commands.Handler.Internal
                 Success = true,
                 ClientId = peer.Id,
                 ServerToken = MultiplayerManager.Instance.CurrentServer.ServerToken,
-                BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion
+                BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion,
+                WildfireProtocol = WildfireSync.ProtocolVersion
             });
 
             PrepareWorldLoad(newPlayer);

@@ -27,10 +27,11 @@ namespace CSM.Commands.Handler.Internal
             if (MultiplayerManager.Instance.CurrentClient.Status != ClientStatus.Connecting)
                 return;
 
-            if (command.Success && command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion)
+            if (command.Success && (command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion ||
+                command.WildfireProtocol != WildfireSync.ProtocolVersion))
             {
                 command.Success = false;
-                command.Reason = "Building synchronization versions differ. Install matching CSM builds on all players.";
+                command.Reason = "Synchronization versions differ. Install matching CSM builds on all players.";
             }
 
             // If we are allowed to connect

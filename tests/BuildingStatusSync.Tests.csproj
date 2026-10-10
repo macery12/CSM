@@ -53,6 +53,7 @@
       <Project>{ab27eacd-b9a9-42bc-bf8a-3b25aabff6ca}</Project>
     </ProjectReference>
     <Compile Include="BuildingStatusSync.Tests.cs" />
+    <Compile Include="WildfireSync.Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)/Microsoft.CSharp.targets" />
 </Project>

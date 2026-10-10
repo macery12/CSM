@@ -424,6 +424,7 @@ internal static class BuildingStatusSyncTests
             Run("all game patch targets exist and named arguments match the original DLL metadata", PatchTargetMetadata);
             Run("status packets never relay client authority and a full batch remains bounded", PacketBatchSize);
             Run("old handshake payloads default to protocol zero, new ones retain capability", HandshakeProtocol);
+            WildfireSyncTests.RunAll(Run);
             Console.WriteLine(_passed + " regression groups passed.");
             return 0;
         }

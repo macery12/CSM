@@ -76,6 +76,7 @@ namespace CSM.Extensions
         private void ResetData()
         {
             BuildingStatusSync.Reset();
+            WildfireSync.Reset();
 
             // Pause simulation on game load and reset cached speed and pause states
             SpeedPauseHelper.ResetSpeedAndPauseState();
@@ -96,6 +97,7 @@ namespace CSM.Extensions
 
             ModSupport.Instance.OnLevelUnloading();
             BuildingStatusSync.Reset();
+            WildfireSync.Reset();
 
             //Code below destroys any created UI from the screen.
             try

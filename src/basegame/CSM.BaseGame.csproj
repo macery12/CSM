@@ -66,6 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseGameConnection.cs" />
+    <Compile Include="Commands\Data\Trees\WildfireStatusCommand.cs" />
+    <Compile Include="Commands\Handler\Trees\WildfireStatusHandler.cs" />
+    <Compile Include="Helpers\WildfireCache.cs" />
+    <Compile Include="Helpers\WildfireSync.cs" />
+    <Compile Include="Injections\WildfirePatches.cs" />
     <Compile Include="Commands\Data\Buildings\BuildingStatusCommand.cs" />
     <Compile Include="Commands\Handler\Buildings\BuildingStatusHandler.cs" />
     <Compile Include="Helpers\BuildingStatusCache.cs" />

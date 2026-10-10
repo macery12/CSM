@@ -17,7 +17,7 @@ namespace CSM.Extensions
     {
         private DateTime _lastEconomyAndDropSync;
 
-        private static void RefreshBuildingStatusConnection()
+        private static void RefreshWorldSyncConnection()
         {
             MultiplayerManager manager = MultiplayerManager.Instance;
             bool connected = manager.IsConnected();
@@ -35,6 +35,7 @@ namespace CSM.Extensions
             }
 
             BuildingStatusSync.UpdateConnection(manager.CurrentRole, connected);
+            WildfireSync.UpdateConnection(manager.CurrentRole, connected);
         }
 
         public override void OnCreated(IThreading threading)
@@ -45,7 +46,7 @@ namespace CSM.Extensions
         public override void OnBeforeSimulationTick()
         {
             base.OnBeforeSimulationTick();
-            RefreshBuildingStatusConnection();
+            RefreshWorldSyncConnection();
 
             // Normally, the game is paused when the player is in Esc or similar menus. We ignore this setting.
             if (SimulationManager.instance.ForcedSimulationPaused && MultiplayerManager.Instance.CurrentRole != MultiplayerRole.None)
@@ -82,8 +83,9 @@ namespace CSM.Extensions
                 _lastEconomyAndDropSync = DateTime.Now;
             }
 
-            RefreshBuildingStatusConnection();
+            RefreshWorldSyncConnection();
             BuildingStatusSync.SimulationStep();
+            WildfireSync.SimulationStep();
 
             // Finish transactions
             TransactionHandler.FinishSend();

@@ -128,6 +128,10 @@ namespace CSM.Panels
                 {
                     Process.Start(Log.Instance.CurrentLogFile);
                 }),
+                new ChatCommand("wildfire-sync", "Shows local wildfire synchronization progress.", (command) =>
+                {
+                    PrintGameMessage(global::CSM.BaseGame.Helpers.WildfireSync.Diagnostics());
+                }),
                 new ChatCommand("building-sync", "Shows local building synchronization progress.", (command) =>
                 {
                     PrintGameMessage(global::CSM.BaseGame.Helpers.BuildingStatusSync.Diagnostics());
