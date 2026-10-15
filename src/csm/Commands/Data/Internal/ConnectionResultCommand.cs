@@ -60,8 +60,5 @@ namespace CSM.Commands.Data.Internal
         /// </summary>
         [ProtoMember(7)]
         public string ServerToken { get; set; }
-
-        [ProtoMember(8)]
-        public int BuildingStatusProtocol { get; set; }
     }
 }

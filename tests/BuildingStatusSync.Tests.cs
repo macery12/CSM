@@ -8,7 +8,6 @@ using CSM.BaseGame.Commands.Data.Buildings;
 using CSM.BaseGame.Commands.Handler.Buildings;
 using CSM.BaseGame.Helpers;
 using CSM.BaseGame.Injections;
-using CSM.Commands.Data.Internal;
 using CSM.Models;
 using ProtoBuf.Meta;
 using UnityEngine;
@@ -62,12 +61,8 @@ internal static class BuildingStatusSyncTests
         model.Add(typeof(CommandBase), true);
         model[typeof(CommandBase)].AddSubType(100, typeof(BuildingStatusCommand));
         model[typeof(CommandBase)].AddSubType(101, typeof(RequestBuildingStatusCommand));
-        model[typeof(CommandBase)].AddSubType(102, typeof(ConnectionRequestCommand));
-        model[typeof(CommandBase)].AddSubType(103, typeof(ConnectionResultCommand));
         model.Add(typeof(BuildingStatusCommand), true);
         model.Add(typeof(RequestBuildingStatusCommand), true);
-        model.Add(typeof(ConnectionRequestCommand), true);
-        model.Add(typeof(ConnectionResultCommand), true);
         model.CompileInPlace();
         return model;
     }
@@ -393,17 +388,6 @@ internal static class BuildingStatusSyncTests
         }
     }
 
-    private static void HandshakeProtocol()
-    {
-        RuntimeTypeModel model = Model();
-        Check(RoundTrip(model, new ConnectionRequestCommand()).BuildingStatusProtocol == 0 &&
-            RoundTrip(model, new ConnectionResultCommand()).BuildingStatusProtocol == 0, "old payload appears compatible");
-        Check(RoundTrip(model, new ConnectionRequestCommand { BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion }).BuildingStatusProtocol ==
-            BuildingStatusSync.ProtocolVersion, "client capability lost");
-        Check(RoundTrip(model, new ConnectionResultCommand { BuildingStatusProtocol = BuildingStatusSync.ProtocolVersion }).BuildingStatusProtocol ==
-            BuildingStatusSync.ProtocolVersion, "host capability lost");
-    }
-
     public static int Main()
     {
         try
@@ -423,7 +407,6 @@ internal static class BuildingStatusSyncTests
             Run("client simulation cannot delete/collapse a building but explicit tool actions still run", PreserveExplicitDemolition);
             Run("all game patch targets exist and named arguments match the original DLL metadata", PatchTargetMetadata);
             Run("status packets never relay client authority and a full batch remains bounded", PacketBatchSize);
-            Run("old handshake payloads default to protocol zero, new ones retain capability", HandshakeProtocol);
             Console.WriteLine(_passed + " regression groups passed.");
             return 0;
         }

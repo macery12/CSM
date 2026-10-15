@@ -37,9 +37,13 @@
     <Reference Include="protobuf-net">
       <HintPath>../assemblies/protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="CitiesHarmony.Harmony">
-      <HintPath>$(HarmonyAssemblyPath)</HintPath>
-    </Reference>
+    <PackageReference Include="CitiesHarmony.API">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <!-- Harmony is normally provided by the game, so the tests need its runtime assembly copied -->
+    <PackageReference Include="CitiesHarmony.Harmony">
+      <Version>2.2.2</Version>
+    </PackageReference>
     <ProjectReference Include="../src/basegame/CSM.BaseGame.csproj">
       <Name>CSM.BaseGame</Name>
       <Project>{bfc8de00-f495-4388-9e36-f1471f8ed578}</Project>

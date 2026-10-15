@@ -5,7 +5,6 @@ using CSM.API;
 using CSM.API.Commands;
 using CSM.API.Networking;
 using CSM.API.Networking.Status;
-using CSM.BaseGame.Helpers;
 using CSM.Commands.Data.Internal;
 using CSM.Helpers;
 using CSM.Mods;
@@ -26,12 +25,6 @@ namespace CSM.Commands.Handler.Internal
             // We only want this message while connecting
             if (MultiplayerManager.Instance.CurrentClient.Status != ClientStatus.Connecting)
                 return;
-
-            if (command.Success && command.BuildingStatusProtocol != BuildingStatusSync.ProtocolVersion)
-            {
-                command.Success = false;
-                command.Reason = "Building synchronization versions differ. Install matching CSM builds on all players.";
-            }
 
             // If we are allowed to connect
             if (command.Success)

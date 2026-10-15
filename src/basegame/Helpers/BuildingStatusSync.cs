@@ -11,7 +11,6 @@ namespace CSM.BaseGame.Helpers
 {
     public static class BuildingStatusSync
     {
-        public const int ProtocolVersion = 1;
         public const int BatchSize = 64;
         private const int SweepSize = 512;
         private static readonly long FlushTicks = Math.Max(1, Stopwatch.Frequency / 10);
